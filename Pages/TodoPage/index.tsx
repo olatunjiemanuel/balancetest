@@ -1,19 +1,36 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import React, { useState } from "react";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import ButtonComponent from "../../components/ButtonComponent";
+import TodoItem from "../../components/TodoItem";
 
 const TodoPage = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const [updateModalVisible, setUpdateModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   return (
-    <View>
-      <Text>TodoPage</Text>
-      <TouchableOpacity
-        style={styles.testButton}
-        onPress={() => navigation.popTo("Login")}
-      >
-        <Text style={{ color: "#fff" }}>Logout</Text>
-      </TouchableOpacity>
+    <View style={styles.mainCntnr}>
+      <View>
+        <TodoItem
+          updateModalVisible={updateModalVisible}
+          setUpdateModalVisible={setUpdateModalVisible}
+          deleteModalVisible={deleteModalVisible}
+          setDeleteModalVisible={setDeleteModalVisible}
+        />
+      </View>
+      <View>
+        <ButtonComponent
+          buttonName="Logout"
+          onPress={() => navigation.popTo("Login")}
+        />
+      </View>
     </View>
   );
 };
@@ -21,9 +38,7 @@ const TodoPage = () => {
 export default TodoPage;
 
 const styles = StyleSheet.create({
-  testButton: {
-    backgroundColor: "blue",
-    width: 150,
-    padding: 10,
+  mainCntnr: {
+    padding: 20,
   },
 });
