@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginPage from "./Pages/LoginPage";
 import TodoPage from "./Pages/TodoPage";
 import SignUpPage from "./Pages/SignUpPage";
+import TodoDetails from "./Pages/TodoDetails";
 
 const RootStack = createNativeStackNavigator({
   initialRouteName: "Login",
@@ -14,6 +15,7 @@ const RootStack = createNativeStackNavigator({
     Login: LoginPage,
     Todos: TodoPage,
     SignUp: SignUpPage,
+    Details: TodoDetails,
   },
 });
 

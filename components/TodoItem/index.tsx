@@ -9,6 +9,8 @@ import {
 import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import ButtonComponent from "../ButtonComponent";
+import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface TodoItemProps {
   updateModalVisible: boolean;
@@ -24,11 +26,21 @@ const TodoItem = ({
   setDeleteModalVisible,
 }: TodoItemProps) => {
   //   const [modalVisible, setModalVisible] = useState(false);
+
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <Pressable
       onLongPress={() => setDeleteModalVisible(true)}
       style={styles.toDoItemCntnr}
-      onPress={() => setUpdateModalVisible(true)}
+      //   onPress={() => setUpdateModalVisible(true)}
+      onPress={() =>
+        navigation.navigate("Details", {
+          toDoId: 1,
+          toDoTitle: "NAme",
+          toDoStatus: "completed",
+          todoDetails: "ajdklasjdkljasldjklasjdkask",
+        })
+      }
     >
       <Modal visible={updateModalVisible} transparent animationType="fade">
         <View style={styles.modalBackground}>
