@@ -1,24 +1,51 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ButtonComponent from "../ButtonComponent";
 
 interface AuthFormProps {
-  onPressAuth: () => void;
+  onPressLogin: () => void;
+  onPressSignUp: () => void;
   AuthButtonTitle: string;
+  AuthButtonTitle2: string;
+  email: string;
+  password: string;
+  onChangeEmail: (e: string) => void;
+  onChangePassword: (e: string) => void;
 }
 
-const AuthForm = ({ onPressAuth, AuthButtonTitle }: AuthFormProps) => {
+const AuthForm = ({
+  onPressLogin,
+  onPressSignUp,
+  AuthButtonTitle,
+  AuthButtonTitle2,
+  email,
+  password,
+  onChangeEmail,
+  onChangePassword,
+}: AuthFormProps) => {
   return (
     <View style={styles.formCtnr}>
       <View style={styles.emailCntnr}>
         <Text style={styles.formLabel}>Email:</Text>
-        <TextInput style={styles.textInput} />
+        <TextInput
+          style={styles.textInput}
+          value={email}
+          onChangeText={onChangeEmail}
+        />
       </View>
       <View style={styles.emailCntnr}>
         <Text style={styles.formLabel}>Password:</Text>
-        <TextInput style={styles.textInput} />
+        <TextInput
+          style={styles.textInput}
+          value={password}
+          onChangeText={onChangePassword}
+        />
       </View>
-      <ButtonComponent buttonName={AuthButtonTitle} onPress={onPressAuth} />
+      <View style={styles.LoginButton}>
+        <ButtonComponent buttonName={AuthButtonTitle} onPress={onPressLogin} />
+      </View>
+
+      <ButtonComponent buttonName={AuthButtonTitle2} onPress={onPressSignUp} />
     </View>
   );
 };
@@ -37,5 +64,9 @@ const styles = StyleSheet.create({
   },
   formLabel: {
     marginBottom: 5,
+  },
+
+  LoginButton: {
+    marginBottom: 20,
   },
 });

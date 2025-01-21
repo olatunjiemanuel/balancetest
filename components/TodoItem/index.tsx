@@ -13,80 +13,38 @@ import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface TodoItemProps {
-  updateModalVisible: boolean;
-  setUpdateModalVisible: (e: boolean) => void;
-  deleteModalVisible: boolean;
-  setDeleteModalVisible: (e: boolean) => void;
+  toDoId: string;
+  toDoTitle: string;
+  toDoStatus: boolean;
+  todoDetails: string;
 }
 
 const TodoItem = ({
-  updateModalVisible,
-  setUpdateModalVisible,
-  deleteModalVisible,
-  setDeleteModalVisible,
+  toDoId,
+  toDoTitle,
+  toDoStatus,
+  todoDetails,
 }: TodoItemProps) => {
-  //   const [modalVisible, setModalVisible] = useState(false);
-
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <Pressable
-      onLongPress={() => setDeleteModalVisible(true)}
       style={styles.toDoItemCntnr}
-      //   onPress={() => setUpdateModalVisible(true)}
       onPress={() =>
         navigation.navigate("Details", {
-          toDoId: 1,
-          toDoTitle: "NAme",
-          toDoStatus: "completed",
-          todoDetails: "ajdklasjdkljasldjklasjdkask",
+          toDoId: toDoId,
+          toDoTitle: toDoTitle,
+          toDoStatus: toDoStatus,
+          todoDetails: todoDetails,
         })
       }
     >
-      <Modal visible={updateModalVisible} transparent animationType="fade">
-        <View style={styles.modalBackground}>
-          <View style={styles.expandedItemCntnr}>
-            <TouchableOpacity
-              onPress={() => setUpdateModalVisible(false)}
-              style={styles.closeButton}
-            >
-              <AntDesign name="closecircle" size={30} color="purple" />
-            </TouchableOpacity>
-            <Text style={styles.modalTitleCntnr}>TodoItemName Completed ?</Text>
-            <View style={styles.modalBtnCntnr}>
-              <ButtonComponent buttonName="Yes" onPress={() => {}} />
-            </View>
-            <View style={styles.modalBtnCntnr}>
-              <ButtonComponent buttonName="No" onPress={() => {}} />
-            </View>
-          </View>
-        </View>
-      </Modal>
-      <Modal visible={deleteModalVisible} transparent animationType="slide">
-        <View style={styles.modalBackground}>
-          <View style={styles.expandedItemCntnr}>
-            <TouchableOpacity
-              onPress={() => setDeleteModalVisible(false)}
-              style={styles.closeButton}
-            >
-              <AntDesign name="closecircle" size={30} color="purple" />
-            </TouchableOpacity>
-            <Text style={styles.modalTitleCntnr}>Delete TodoItemName ?</Text>
-            <View style={styles.modalBtnCntnr}>
-              <ButtonComponent buttonName="Yes" onPress={() => {}} />
-            </View>
-            <View style={styles.modalBtnCntnr}>
-              <ButtonComponent buttonName="No" onPress={() => {}} />
-            </View>
-          </View>
-        </View>
-      </Modal>
       <View>
         <Text style={styles.labels}>Title</Text>
-        <Text>TodoItem</Text>
+        <Text>{toDoTitle}</Text>
       </View>
       <View>
         <Text style={styles.labels}>Status</Text>
-        <Text>Completed</Text>
+        <Text>{toDoStatus ? "completed" : "Not complete"}</Text>
       </View>
     </Pressable>
   );

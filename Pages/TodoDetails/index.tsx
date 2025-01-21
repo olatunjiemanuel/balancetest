@@ -7,7 +7,7 @@ import ButtonComponent from "../../components/ButtonComponent";
 
 type TodoDetailsRouteParams = {
   toDoId: number;
-  toDoStatus: string;
+  toDoStatus: boolean;
   todoDetails: string;
   toDoTitle: string;
 };
@@ -20,14 +20,32 @@ const TodoDetails = ({ route }: TodoDetailsProps) => {
   const { toDoId, toDoStatus, todoDetails, toDoTitle } = route.params;
   const navigation = useNavigation();
   return (
-    <View>
-      <Text> the item id is {JSON.stringify(toDoId)} </Text>
-      <Text>other details{JSON.stringify(toDoStatus)}</Text>
-      <Text>other details{JSON.stringify(todoDetails)}</Text>
-      <Text>other details{JSON.stringify(toDoTitle)}</Text>
+    <View style={styles.todoDetailsContainer}>
+      <Text style={styles.toDoTitle}>{toDoTitle}</Text>
+      {/* <Text> the item id is {toDoId} </Text> */}
+      <View style={styles.statusContainer}>
+        <Text>Status:</Text>
+        <Text>{toDoStatus ? "completed" : "not complete"}</Text>
+      </View>
+
+      <View style={styles.detailsCntnr}>
+        <Text>Todo details:</Text>
+        <View style={styles.detailsWarapper}>
+          <Text>{todoDetails}</Text>
+        </View>
+      </View>
+
       <View>
         <ButtonComponent
-          buttonName="Update to complete"
+          buttonName={toDoStatus ? "Mark as Incomplete" : "Mark as Completed"}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+      </View>
+      <View style={styles.deleteButton}>
+        <ButtonComponent
+          buttonName="Delete"
           onPress={() => {
             navigation.goBack();
           }}
@@ -39,4 +57,24 @@ const TodoDetails = ({ route }: TodoDetailsProps) => {
 
 export default TodoDetails;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  todoDetailsContainer: {
+    padding: 20,
+  },
+  toDoTitle: {
+    fontSize: 40,
+    marginVertical: 20,
+  },
+  statusContainer: {
+    flexDirection: "row",
+  },
+  detailsWarapper: {
+    backgroundColor: "#fff",
+    padding: 20,
+    marginTop: 5,
+  },
+  detailsCntnr: {
+    marginVertical: 20,
+  },
+  deleteButton: { marginTop: 20 },
+});
