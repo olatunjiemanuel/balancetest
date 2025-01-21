@@ -16,6 +16,9 @@ import {
   getFirestore,
   query,
   where,
+  doc,
+  updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 const auth = getAuth(firebase_app);
@@ -62,6 +65,34 @@ export const Logout = async () => {
     console.log("User signed out successfully:");
   } catch (error) {
     console.error("Error signing out:", error);
+  }
+};
+
+export const updateTodo = async (
+  todoId: string,
+  updatedData: { Status: boolean }
+) => {
+  try {
+    const todoRef = doc(firebase_db, "ToDos", todoId);
+    await updateDoc(todoRef, updatedData);
+    console.log(`Todo with ID ${todoId} updated successfully`);
+
+    // Refresh the todo list after updating
+  } catch (error) {
+    console.error("Error updating document: ", error);
+  }
+};
+
+export const deleteTodo = async (todoId: string) => {
+  try {
+    const todoRef = doc(firebase_db, "ToDos", todoId);
+    await deleteDoc(todoRef);
+    console.log(`Todo with ID ${todoId} deleted successfully`);
+
+    // Refresh the todo list after deletion
+    // getCustomToDoList();
+  } catch (error) {
+    console.error("Error deleting document: ", error);
   }
 };
 

@@ -9,7 +9,11 @@ import {
   Button,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
+import {
+  ParamListBase,
+  useFocusEffect,
+  useNavigation,
+} from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import ButtonComponent from "../../components/ButtonComponent";
 import TodoItem from "../../components/TodoItem";
@@ -39,6 +43,12 @@ const TodoPage = () => {
   useEffect(() => {
     getCustomToDoList();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getCustomToDoList();
+    }, [])
+  );
 
   const getCustomToDoList = async () => {
     if (user?.email) {

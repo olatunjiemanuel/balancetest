@@ -4,9 +4,10 @@ import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
 import ButtonComponent from "../../components/ButtonComponent";
+import { updateTodo, getTodos, deleteTodo } from "../../firebase-services";
 
 type TodoDetailsRouteParams = {
-  toDoId: number;
+  toDoId: string;
   toDoStatus: boolean;
   todoDetails: string;
   toDoTitle: string;
@@ -39,6 +40,8 @@ const TodoDetails = ({ route }: TodoDetailsProps) => {
         <ButtonComponent
           buttonName={toDoStatus ? "Mark as Incomplete" : "Mark as Completed"}
           onPress={() => {
+            updateTodo(toDoId, { Status: !toDoStatus });
+            getTodos();
             navigation.goBack();
           }}
         />
@@ -47,6 +50,7 @@ const TodoDetails = ({ route }: TodoDetailsProps) => {
         <ButtonComponent
           buttonName="Delete"
           onPress={() => {
+            deleteTodo(toDoId);
             navigation.goBack();
           }}
         />
