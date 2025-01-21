@@ -128,7 +128,7 @@ const TodoPage = () => {
         />
       </View>
       <View style={styles.TodosContnr}>
-        {customToDoList ? (
+        {customToDoList && customToDoList.length > 0 ? (
           <FlatList
             data={customToDoList}
             renderItem={({ item }) => (
@@ -142,7 +142,9 @@ const TodoPage = () => {
             keyExtractor={(item) => item.id.toString()}
           />
         ) : (
-          <Text>No Todos</Text>
+          <View style={styles.noToDosCtnr}>
+            <Text>No Todos... Please add a ToDo item</Text>
+          </View>
         )}
       </View>
       <View>
@@ -198,5 +200,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     marginTop: 5,
+  },
+  noToDosCtnr: {
+    marginVertical: 10,
   },
 });
